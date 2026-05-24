@@ -1,0 +1,8 @@
+{
+  "name": "xarheon-wasmer",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "wasmer run",
+    "deploy": "wasmer deploy"
+  }
+}

@@ -1,0 +1,10 @@
+[package]
+name = "xarheon-edge"
+version = "1.0.0"
+
+[[edge]]
+path = "/*"
+function = "handler"
+
+[files]
+"edge.js" = "edge.js"

@@ -1,623 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Xarheon Edge | Quantum Edge Computing Platform</title>
-    <meta name="description" content="Xarheon Edge - Revolutionary edge computing platform with quantum-ready infrastructure, sub-millisecond latency, and global deployment.">
-    <meta name="keywords" content="edge computing, quantum edge, distributed systems, low latency, global network">
-    <meta name="author" content="Xarheon Edge">
+    <title>Xarheon Edge - Wasmer</title>
+    <meta http-equiv="refresh" content="5">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: none;
         }
-
         body {
-            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
-            background: #000000;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             color: #fff;
-            overflow-x: hidden;
+            font-family: 'Segoe UI', monospace;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-
-        /* Interactive Animated Gradient Background */
-        .interactive-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-
-        #gradient-canvas {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-
-        /* Glow cursor follower */
-        .cursor-glow {
-            position: fixed;
-            width: 400px;
-            height: 400px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(0, 255, 255, 0.15) 0%, rgba(0, 255, 255, 0.05) 30%, rgba(0, 255, 255, 0) 70%);
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: screen;
-            transition: transform 0.05s ease-out;
-        }
-
-        .cursor-dot {
-            position: fixed;
-            width: 8px;
-            height: 8px;
-            background: #00ffff;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            box-shadow: 0 0 20px #00ffff;
-            transition: transform 0.05s ease-out;
-        }
-
-        /* 3D Tilt Cards effect container */
-        .tilt-container {
-            perspective: 1000px;
-        }
-
-        /* Floating orbs */
-        .floating-orb {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(60px);
-            pointer-events: none;
-            z-index: 0;
-            animation: orbFloat 20s ease-in-out infinite;
-        }
-
-        @keyframes orbFloat {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(100px, -50px) scale(1.2); }
-            66% { transform: translate(-50px, 100px) scale(0.8); }
-        }
-
         .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 5%;
-            position: relative;
-            z-index: 10;
-        }
-
-        /* Glass Header */
-        .header {
-            padding: 25px 0;
-            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
-            backdrop-filter: blur(20px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 25px;
-        }
-
-        .logo {
-            font-size: 2rem;
-            font-weight: 800;
-            letter-spacing: 4px;
-            background: linear-gradient(135deg, #00ffff, #ff00ff, #00ffff);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: logoShine 5s linear infinite;
-        }
-
-        @keyframes logoShine {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 35px;
-            flex-wrap: wrap;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #ccc;
-            font-weight: 500;
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .nav-links a::before {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #00ffff;
-            transition: width 0.3s;
-            box-shadow: 0 0 10px #00ffff;
-        }
-
-        .nav-links a:hover::before {
-            width: 100%;
-        }
-
-        .nav-links a:hover {
-            color: #00ffff;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-        }
-
-        .cyber-btn {
-            background: rgba(0, 255, 255, 0.1);
-            border: 2px solid #00ffff;
-            color: #00ffff;
-            padding: 12px 30px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            border-radius: 40px;
+            text-align: center;
+            background: rgba(0,0,0,0.6);
             backdrop-filter: blur(10px);
+            padding: 60px;
+            border-radius: 30px;
+            border: 1px solid rgba(0,255,255,0.3);
+            max-width: 600px;
+            margin: 20px;
         }
-
-        .cyber-btn:hover {
-            background: #00ffff;
-            color: #000;
-            box-shadow: 0 0 40px rgba(0, 255, 255, 0.5);
-            transform: scale(1.05);
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-            padding: 100px 0;
-        }
-
-        .hero-content {
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: clamp(3rem, 12vw, 7rem);
-            font-weight: 900;
-            background: linear-gradient(135deg, #fff, #00ffff, #ff00ff, #00ffff);
-            background-size: 300% auto;
+        h1 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #00ffff, #ff00ff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            animation: textFlow 6s linear infinite;
-        }
-
-        @keyframes textFlow {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 300% 50%; }
-        }
-
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 60px;
-            margin: 60px 0;
-            flex-wrap: wrap;
-        }
-
-        .stat-card {
-            text-align: center;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(15px);
-            padding: 25px 35px;
-            border-radius: 20px;
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            transition: all 0.3s;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-10px) scale(1.05);
-            border-color: #00ffff;
-            box-shadow: 0 0 50px rgba(0, 255, 255, 0.3);
-        }
-
-        .stat-value {
-            font-size: 3rem;
-            font-weight: 800;
-            color: #00ffff;
-            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-        }
-
-        /* 3D Cards Grid */
-        .cards-3d {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin: 60px 0;
-        }
-
-        .card-3d {
-            background: rgba(10, 10, 20, 0.6);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            border-radius: 25px;
-            padding: 35px;
-            transition: all 0.4s;
-            transform-style: preserve-3d;
-            transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
-        }
-
-        .card-3d:hover {
-            border-color: #00ffff;
-            box-shadow: 0 0 60px rgba(0, 255, 255, 0.2);
-        }
-
-        .card-icon {
-            font-size: 3rem;
             margin-bottom: 20px;
-            display: inline-block;
         }
-
-        /* Network Visualization */
-        .network-viz {
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 30px;
-            padding: 60px;
-            text-align: center;
-            margin: 60px 0;
-            border: 1px solid rgba(0, 255, 255, 0.2);
-        }
-
-        .node-map {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            margin-top: 40px;
-        }
-
-        .node {
-            width: 80px;
-            height: 80px;
-            background: rgba(0, 255, 255, 0.1);
-            border: 2px solid #00ffff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            animation: nodePulse 2s infinite;
-        }
-
-        .node::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(0, 255, 255, 0.3), transparent);
-            animation: ripple 2s infinite;
-        }
-
-        @keyframes nodePulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 255, 255, 0.4); }
-            50% { box-shadow: 0 0 0 20px rgba(0, 255, 255, 0); }
-        }
-
-        @keyframes ripple {
-            0% { transform: scale(0.8); opacity: 0.8; }
-            100% { transform: scale(1.5); opacity: 0; }
-        }
-
-        .connection-line {
-            width: 50px;
-            height: 2px;
-            background: linear-gradient(90deg, #00ffff, #ff00ff);
-            animation: linePulse 1.5s infinite;
-        }
-
-        @keyframes linePulse {
-            0%, 100% { opacity: 0.3; width: 50px; }
-            50% { opacity: 1; width: 70px; }
-        }
-
-        /* Live Metrics */
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin: 60px 0;
-        }
-
-        .metric-card {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .metric-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 255, 255, 0.08), transparent);
-            animation: spinBg 15s linear infinite;
-        }
-
-        @keyframes spinBg {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .metric-value {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #00ffff;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Terminal Edge */
-        .terminal-edge {
-            background: #0a0a0f;
-            border: 2px solid #00ffff;
-            border-radius: 20px;
-            overflow: hidden;
-            margin: 60px 0;
-            box-shadow: 0 0 80px rgba(0, 255, 255, 0.1);
-        }
-
-        .terminal-body {
-            padding: 30px;
-            font-family: 'Courier New', monospace;
+        .status {
+            color: #00ff00;
+            margin-top: 20px;
             font-size: 0.9rem;
-            background: rgba(0, 0, 0, 0.8);
         }
-
-        .terminal-line {
-            margin: 8px 0;
-            color: #0f0;
-            text-shadow: 0 0 3px #0f0;
+        .info {
+            color: #888;
+            margin-top: 30px;
+            font-size: 0.8rem;
         }
-
-        /* Footer */
-        footer {
-            padding: 50px 0 30px;
-            text-align: center;
-            border-top: 1px solid rgba(0, 255, 255, 0.2);
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero-stats { gap: 15px; }
-            .stat-value { font-size: 1.5rem; }
-            .stat-card { padding: 12px 18px; }
-            .node-map { gap: 15px; }
-            .node { width: 50px; height: 50px; font-size: 0.7rem; }
+        .pulse {
+            animation: pulse 2s infinite;
         }
-
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: #00ffff; border-radius: 4px; }
-
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-
-        .loader-spinner {
-            width: 60px;
-            height: 60px;
-            border: 3px solid rgba(0, 255, 255, 0.2);
-            border-top-color: #00ffff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
-
-<div class="loader" id="loader"><div class="loader-spinner"></div></div>
-
-<!-- Interactive Gradient Background -->
-<div class="interactive-bg">
-    <canvas id="gradient-canvas"></canvas>
-</div>
-
-<!-- Floating Orbs -->
-<div class="floating-orb" style="width: 500px; height: 500px; background: radial-gradient(circle, rgba(0,255,255,0.15), transparent); top: -200px; right: -200px;"></div>
-<div class="floating-orb" style="width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,0,255,0.1), transparent); bottom: -300px; left: -200px; animation-delay: -5s;"></div>
-<div class="floating-orb" style="width: 300px; height: 300px; background: radial-gradient(circle, rgba(0,255,255,0.1), transparent); top: 50%; left: 50%; animation-delay: -10s;"></div>
-
-<!-- Cursor Effects -->
-<div class="cursor-glow" id="cursorGlow"></div>
-<div class="cursor-dot" id="cursorDot"></div>
-
-<header class="header">
     <div class="container">
-        <div class="logo">XARHEON EDGE</div>
-        <nav class="nav-links">
-            <a href="#">EDGE</a>
-            <a href="#">NETWORK</a>
-            <a href="#">LATENCY</a>
-            <a href="#">DEPLOY</a>
-            <a href="#">METRICS</a>
-            <a href="#">CONTACT</a>
-        </nav>
-        <button class="cyber-btn" onclick="showToast('⚡ Edge Console Activated')">DEPLOY EDGE →</button>
+        <h1>⚡ XARHEON EDGE</h1>
+        <p>Wasmer Edge Function Platform</p>
+        <div class="status pulse">● SYSTEM OPERATIONAL</div>
+        <div class="info">Proxy ready | x-host header required</div>
     </div>
-</header>
-
-<main>
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>QUANTUM EDGE</h1>
-                <p style="font-size: 1.2rem; letter-spacing: 3px; margin-top: 20px;">SUB-MILLISECOND • GLOBAL • QUANTUM-READY</p>
-                
-                <div class="hero-stats">
-                    <div class="stat-card"><span class="stat-value" id="edgeNodes">0</span><span class="stat-label">EDGE NODES</span></div>
-                    <div class="stat-card"><span class="stat-value" id="latency">&lt;1ms</span><span class="stat-label">AVG LATENCY</span></div>
-                    <div class="stat-card"><span class="stat-value" id="throughput">0</span><span class="stat-label">THROUGHPUT (Gbps)</span></div>
-                    <div class="stat-card"><span class="stat-value" id="uptime">99.999%</span><span class="stat-label">UPTIME</span></div>
-                </div>
-                
-                <button class="cyber-btn" onclick="document.getElementById('network').scrollIntoView({behavior:'smooth'})">EXPLORE EDGE NETWORK →</button>
-            </div>
-        </div>
-    </section>
-
-    <section id="network">
-        <div class="container">
-            <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 40px;">Global <span style="color:#00ffff;">Edge Fabric</span></h2>
-            <div class="network-viz">
-                <div class="node-map" id="nodeMap"></div>
-            </div>
-        </div>
-    </section>
-
-    <section>
-        <div class="container">
-            <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 50px;">Edge <span style="color:#00ffff;">Capabilities</span></h2>
-            <div class="cards-3d" id="edgeCards"></div>
-        </div>
-    </section>
-
-    <section>
-        <div class="container">
-            <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 50px;">Live <span style="color:#00ffff;">Edge Metrics</span></h2>
-            <div class="metrics-grid">
-                <div class="metric-card"><div class="metric-value" id="reqSec">0</div><div>REQUESTS/SEC</div></div>
-                <div class="metric-card"><div class="metric-value" id="activeEdges">0</div><div>ACTIVE EDGES</div></div>
-                <div class="metric-card"><div class="metric-value" id="cacheHitRate">0%</div><div>EDGE CACHE HIT</div></div>
-                <div class="metric-card"><div class="metric-value" id="bandwidthNow">0</div><div>BANDWIDTH (Gbps)</div></div>
-            </div>
-        </div>
-    </section>
-
-    <section>
-        <div class="container">
-            <div class="terminal-edge">
-                <div class="terminal-body" id="edgeTerminal"></div>
-            </div>
-        </div>
-    </section>
-
-    <section>
-        <div class="container">
-            <div style="background: rgba(0,255,255,0.05); border-radius: 30px; padding: 60px; text-align: center;">
-                <div style="font-size: 4rem; margin-bottom: 20px;">⚡</div>
-                <a href="https://t.me/Xarheon" target="_blank" style="font-size: 2rem; color: #00ffff; text-decoration: none;">@Xarheon</a>
-                <p style="margin-top: 30px; color: #888;">Deploy your edge infrastructure today</p>
-            </div>
-        </div>
-    </section>
-</main>
-
-<footer>
-    <div class="container">
-        <div style="width: 100%; height: 1px; background: linear-gradient(90deg, transparent, #00ffff, #ff00ff, transparent); margin-bottom: 30px;"></div>
-        <p>Xarheon Edge - Quantum Edge Computing Platform</p>
-        <p style="font-size: 0.8rem; margin-top: 12px;">Beyond Latency | Next Generation Edge Infrastructure</p>
-    </div>
-</footer>
-
-<script>
-    // Loader
-    window.addEventListener('load', () => {
-        const loader = document.getElementById('loader');
-        setTimeout(() => { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 500); }, 800);
-    });
-
-    function showToast(msg) {
-        // Simple toast
-        alert(msg);
-    }
-
-    // Interactive Gradient Background
-    const canvas = document.getElementById('gradient-canvas');
-    const ctx = canvas.getContext('2d');
-    
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-    
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-    
-    function animateGradient() {
-        const time = Date.now() * 0.002;
-        
-        const gradient = ctx.createLinearGradient(
-            mouseX + Math.sin(time) * 100, 
-            mouseY + Math.cos(time) * 100,
-            window.innerWidth - mouseX + Math.sin(time + 2) * 100,
-            window.innerHeight - mouseY + Math.cos(time + 3) * 100
-        );
-        
-        gradient.addColorStop(0, '#0a0a2e');
-        gradient.addColorStop(0.3, '#1a0033');
-        gradient.addColorStop(0.6, '#001a33');
-        gradient.addColorStop(1, '#0a0a0a');
-        
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        // Add moving light spots
-        for (let i = 0; i < 5; i++) {
-            const x = mouseX + Math.sin(time * (i + 1) * 0.5) * 200;
-            const y = mouseY + Math.cos(time * (i + 1) * 0.7) * 150;
-            const grd = ctx.createRadialGradient(x, y, 0, x, y, 150);
-            grd.addColorStop(0, `rgba(0, 255, 255, ${0.05 + Math.sin(time) * 0.02})`);
-            grd.addColorStop(1, 'transparent');
-            ctx.fillStyle = grd;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-        }
-        
-        requestAnimationFrame(animateGradient);
-    }
-    animateGradient();
-    
-    // Cursor effects
-    const cursorGlow = document.getElementById('cursorGlow');
-    const cursorDot = document.getEle
+</body>
+</html>
